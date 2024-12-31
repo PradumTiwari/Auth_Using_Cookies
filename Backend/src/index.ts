@@ -26,6 +26,25 @@ app.post("/signin",(req,res)=>{
     res.send("Logged in");
 })
 
+app.get("/user",(req,res)=>{
+    const token =req.cookies.token;
+    const decoded=jwt.verify(token,JWT_SECRET) as JwtPayload;
+    res.send({
+        userId:decoded.id
+    })
+})
+
+
+app.post("/logout",(req,res)=>{
+    res.cookie("token","ads");
+    res.json({
+        message:"Logged Out"
+    })
+})
+
+
+app.listen(3000);
+
 
 
 
